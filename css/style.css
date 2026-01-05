@@ -216,3 +216,17 @@ footer {
   margin-left: 20px;
 }
 
+/* Estilo para reportes nuevos */
+.reporte.nuevo {
+  background-color: #fff8c4; /* color amarillo claro */
+  border-left: 4px solid #f5c542; /* borde izquierdo amarillo */
+  padding: 10px;
+  transition: background-color 0.5s ease;
+}
+
+/* Opcional: efecto al pasar el mouse */
+.reporte.nuevo:hover {
+  background-color: #fff3a0;
+}
+
+
