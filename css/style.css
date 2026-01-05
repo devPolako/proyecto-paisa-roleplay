@@ -137,3 +137,39 @@ footer {
     margin: 5px 0;
   }
 }
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.sancion-leve {
+  color: #2ecc71; /* Verde */
+  font-weight: bold;
+}
+
+.sancion-media {
+  color: #f39c12; /* Naranja */
+  font-weight: bold;
+}
+
+.sancion-grave {
+  color: #e74c3c; /* Rojo */
+  font-weight: bold;
+}
+
+.sancion-list {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.sancion-list ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.sancion-list ul ul {
+  list-style-type: circle;
+  margin-left: 20px;
+}
+
