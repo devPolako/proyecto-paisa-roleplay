@@ -1,142 +1,107 @@
-/* ======== RESET ======== */
+/* ==========================
+   RESET BÁSICO
+========================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-/* ======== BODY ======== */
 body {
-  background-color: #121212;
+  background-color: #1c1c1c;
   color: #eee;
   line-height: 1.6;
 }
 
-/* ======== HEADER ======== */
+/* ==========================
+   HEADER Y NAV
+========================== */
 header {
-  background-color: #1f1f1f;
+  background-color: #111;
   padding: 20px;
   text-align: center;
-  border-bottom: 2px solid #444;
+  border-bottom: 3px solid #f39c12;
 }
 
 header h1 {
+  font-size: 2rem;
   margin-bottom: 10px;
-  color: #ffd700; /* dorado */
+}
+
+nav {
+  margin-top: 10px;
 }
 
 nav a {
-  color: #eee;
   text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
+  color: #eee;
+  margin: 0 12px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
 nav a:hover {
-  color: #ffd700;
+  background-color: #f39c12;
+  color: #111;
 }
 
-/* ======== MAIN ======== */
+/* ==========================
+   SECCIONES
+========================== */
 main {
   padding: 20px;
   max-width: 900px;
   margin: 0 auto;
 }
 
-h2 {
-  margin-bottom: 10px;
-  color: #ffd700;
-}
-
 section {
   margin-bottom: 30px;
-  background-color: #1f1f1f;
-  padding: 15px;
+  background-color: #222;
+  padding: 20px;
   border-radius: 8px;
-  border: 1px solid #333;
 }
 
-/* ======== FORM ======== */
-form label {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
+section h2 {
+  margin-bottom: 15px;
+  color: #f39c12;
 }
 
-form input[type="text"],
-form textarea {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #555;
-  background-color: #2c2c2c;
-  color: #eee;
-}
-
-form textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-form button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #ffd700;
-  color: #121212;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-form button:hover {
-  background-color: #e6c200;
-}
-
-/* ======== REPORTES ======== */
-.reporte {
-  background-color: #2c2c2c;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* ======== FOOTER ======== */
-footer {
-  text-align: center;
-  padding: 15px;
-  background-color: #1f1f1f;
-  border-top: 2px solid #444;
-  margin-top: 30px;
-  color: #aaa;
-}
-
-/* ======== BOTÓN LOGIN ======== */
+/* ==========================
+   BOTÓN DISCORD LOGIN
+========================== */
 #login-btn {
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #7289da; /* Discord azul */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #7289DA;
   color: #fff;
-  margin-top: 15px;
-  transition: 0.3s;
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.2s;
 }
 
 #login-btn:hover {
   background-color: #5b6eae;
 }
 
-/* ======== RESPONSIVE ======== */
-@media (max-width: 600px) {
-  nav a {
-    display: block;
-    margin: 5px 0;
-  }
+/* ==========================
+   LISTAS
+========================== */
+ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
 }
+
+ul li {
+  margin-bottom: 8px;
+}
+
+/* ==========================
+   SANCIONES
+========================== */
 h3 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -170,6 +135,84 @@ h3 {
 
 .sancion-list ul ul {
   list-style-type: circle;
+  margin-left: 20px;
+}
+
+/* ==========================
+   FORMULARIOS
+========================== */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input, form textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+
+form input[type="file"] {
+  padding: 5px;
+}
+
+form button {
+  background-color: #f39c12;
+  color: #111;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+form button:hover {
+  background-color: #e67e22;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #111;
+  border-top: 3px solid #f39c12;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* ==========================
+   TABLAS / PANEL
+========================== */
+#reportes-list {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+#reportes-list .reporte {
+  background-color: #222;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  border-left: 4px solid #f39c12;
+}
+
+#reportes-list .reporte p {
+  margin-bottom: 6px;
+}
+
+/* ==========================
+   LISTAS DE ACTUALIZACIONES
+========================== */
+.updates ul {
+  list-style-type: square;
   margin-left: 20px;
 }
 
