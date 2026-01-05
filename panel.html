@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Staff - Paisa RP</title>
+  <title>Panel Staff - Proyecto Paisa Roleplay</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -30,6 +30,77 @@
     <p>© 2026 Proyecto Paisa Roleplay – Todos los derechos reservados</p>
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <!-- JS dinámico para cargar reportes desde Supabase -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = 'https://wgimbwzhxwxmcneekuen.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaW1id3poeHd4bWNuZWVrdWVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1ODk2NjEsImV4cCI6MjA4MzE2NTY2MX0.79xbkg9rhDdIZoThUvB5IMpT0rqXag1wjzNmoSvR62E'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const reportesList = document.getElementById('reportes-list')
+
+    if (reportesList) {
+      const fetchReportes = async () => {
+        try {
+          // 1️⃣ Traer reportes
+          const { data: reportes, error: reportesError } = await supabase
+            .from('reportes')
+            .select('*')
+            .order('fecha', { ascending: false })
+
+          if (reportesError) throw reportesError
+
+          // 2️⃣ Traer todas las sanciones
+          const { data: sancionesDB, error: sancionesError } = await supabase
+            .from('sanciones')
+            .select('*')
+
+          if (sancionesError) throw sancionesError
+
+          if (reportes.length === 0) {
+            reportesList.innerHTML = '<p>No hay reportes por mostrar.</p>'
+            return
+          }
+
+          // 3️⃣ Mapear y mostrar reportes
+          reportesList.innerHTML = reportes.map(r => {
+            // Convertir IDs de sanciones en nombre + tiempo
+            let sancionesText = 'N/A'
+            if (Array.isArray(r.sanciones) && r.sanciones.length > 0) {
+              sancionesText = r.sanciones.map(id => {
+                const sanc = sancionesDB.find(s => s.id === parseInt(id))
+                return sanc ? `${sanc.categoria} - ${sanc.regla} (${sanc.tiempo})` : id
+              }).join('; ')
+            }
+
+            return `
+              <div class="reporte">
+                <p><strong>Usuario que reporta:</strong> ${r.reportante || 'N/A'}</p>
+                <p><strong>Usuario reportado:</strong> ${r.usuario_reportado}</p>
+                <p><strong>Motivo:</strong> ${r.motivo}</p>
+                <p><strong>Contexto:</strong> ${r.contexto || 'N/A'}</p>
+                <p><strong>Sanciones seleccionadas:</strong> ${sancionesText}</p>
+                <p><strong>Descripción:</strong> ${r.descripcion}</p>
+                <p><strong>Evidencia:</strong> ${r.evidencia || 'N/A'}</p>
+                <p><strong>Estado:</strong> ${r.estado}</p>
+                <p><strong>Fecha:</strong> ${new Date(r.fecha).toLocaleString()}</p>
+              </div>
+              <hr>
+            `
+          }).join('')
+
+        } catch (error) {
+          console.log('Error cargando reportes:', error)
+          reportesList.innerHTML = '<p>Error cargando reportes.</p>'
+        }
+      }
+
+      fetchReportes()
+    }
+  </script>
 </body>
 </html>
+
+
+
