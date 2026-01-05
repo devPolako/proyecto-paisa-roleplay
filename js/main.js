@@ -2,8 +2,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 // Configuración de Supabase
-const supabaseUrl = 'TU_SUPABASE_URL'     // <-- Poné tu URL de Supabase
-const supabaseKey = 'TU_ANON_KEY'         // <-- Poné tu ANON KEY
+const supabaseUrl = 'https://wgimbwzhxwxmcneekuen.supabase.co'     // <-- Poné tu URL de Supabase
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaW1id3poeHd4bWNuZWVrdWVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1ODk2NjEsImV4cCI6MjA4MzE2NTY2MX0.79xbkg9rhDdIZoThUvB5IMpT0rqXag1wjzNmoSvR62E'         // <-- Poné tu ANON KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // LOGIN CON DISCORD
@@ -62,3 +62,4 @@ if (reportesList) {
   // Cargar reportes al iniciar
   fetchReportes()
 }
+
