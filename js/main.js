@@ -2,7 +2,7 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabaseUrl = 'https://wgimbwzhxwxmcneekuen.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaW1id3poeHd4bWNuZWVrdWVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1ODk2NjEsImV4cCI6MjA4MzE2NTY2MX0.79xbkg9rhDdIZoThUvB5IMpT0rqXag1wjzNmoSvR62E'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaW1id3poeHd4bWNuZWVrdWVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1ODk2NjEsImV4cCI6MjA4MzE2NTY2MX0.79xbkg9rhDdIZoThUvB5IMpT0rqXag1wjzNmoSvR62E' // Reemplazá con tu ANON KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const loginBtn = document.getElementById('login-btn')
@@ -18,7 +18,6 @@ if (loginBtn) {
     if (error) console.log('Error login:', error)
     else {
       console.log('Redirigiendo a Discord...', data)
-
       const { data: { session } } = await supabase.auth.getSession()
       if (session && session.user) {
         const username = session.user.user_metadata.full_name || session.user.email
@@ -88,7 +87,7 @@ const fetchReportes = async () => {
       return
     }
 
-    // Mapear sanciones
+    // Traer todas las sanciones para mapear IDs
     const { data: sancionesData } = await supabase.from('sanciones').select('*')
     const sancionesMap = {}
     sancionesData.forEach(s => sancionesMap[s.id] = `${s.categoria} - ${s.regla} (${s.tiempo})`)
@@ -96,8 +95,6 @@ const fetchReportes = async () => {
     // Generar HTML
     reportesList.innerHTML = reportes.map(r => {
       const sancionesTexto = (r.sanciones || []).map(id => sancionesMap[id] || id).join(', ')
-
-      // Resaltar reportes nuevos
       const isNew = !lastReportIds.includes(r.id)
       const clase = isNew ? 'reporte nuevo' : 'reporte'
 
@@ -120,6 +117,13 @@ const fetchReportes = async () => {
     // Actualizar IDs para next fetch
     lastReportIds = reportes.map(r => r.id)
 
+    // Quitar clase "nuevo" después de 30 segundos
+    document.querySelectorAll('.reporte.nuevo').forEach(el => {
+      setTimeout(() => {
+        el.classList.remove('nuevo')
+      }, 30000)
+    })
+
   } catch (err) {
     console.log('Error cargando reportes:', err)
     reportesList.innerHTML = '<p>Error cargando reportes.</p>'
@@ -131,6 +135,8 @@ fetchReportes()
 
 // Polling cada 10 segundos para ver reportes nuevos
 setInterval(fetchReportes, 10000)
+
+
 
 
 
