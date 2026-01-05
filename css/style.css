@@ -1,0 +1,139 @@
+/* ======== RESET ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ======== BODY ======== */
+body {
+  background-color: #121212;
+  color: #eee;
+  line-height: 1.6;
+}
+
+/* ======== HEADER ======== */
+header {
+  background-color: #1f1f1f;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #444;
+}
+
+header h1 {
+  margin-bottom: 10px;
+  color: #ffd700; /* dorado */
+}
+
+nav a {
+  color: #eee;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
+/* ======== MAIN ======== */
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #ffd700;
+}
+
+section {
+  margin-bottom: 30px;
+  background-color: #1f1f1f;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+/* ======== FORM ======== */
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #2c2c2c;
+  color: #eee;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+form button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #ffd700;
+  color: #121212;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background-color: #e6c200;
+}
+
+/* ======== REPORTES ======== */
+.reporte {
+  background-color: #2c2c2c;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* ======== FOOTER ======== */
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #1f1f1f;
+  border-top: 2px solid #444;
+  margin-top: 30px;
+  color: #aaa;
+}
+
+/* ======== BOTÓN LOGIN ======== */
+#login-btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #7289da; /* Discord azul */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+#login-btn:hover {
+  background-color: #5b6eae;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    margin: 5px 0;
+  }
+}

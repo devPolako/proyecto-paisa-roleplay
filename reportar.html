@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportar Usuario - Paisa RP</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Reportar Usuario</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="normativas.html">Normativas</a>
+      <a href="reportar.html">Reportar</a>
+      <a href="panel.html">Panel Staff</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Formulario de Reporte</h2>
+      <p>Completá todos los campos y enviá el reporte al staff.</p>
+
+      <form id="report-form">
+        <label for="usuario_reportado">Usuario reportado:</label>
+        <input type="text" id="usuario_reportado" name="usuario_reportado" required>
+
+        <label for="motivo">Motivo:</label>
+        <input type="text" id="motivo" name="motivo" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+
+        <label for="evidencia">Evidencia (link o texto):</label>
+        <input type="text" id="evidencia" name="evidencia">
+
+        <button type="submit">Enviar Reporte</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Proyecto Paisa Roleplay – Todos los derechos reservados</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
