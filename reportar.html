@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reportar Usuario - Paisa RP</title>
+  <title>Reportar Usuario - Proyecto Paisa Roleplay</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,11 +23,22 @@
       <p>Completá todos los campos y enviá el reporte al staff.</p>
 
       <form id="report-form">
+        <!-- Campo oculto para el usuario que reporta -->
+        <input type="hidden" id="reportante" name="reportante">
+
         <label for="usuario_reportado">Usuario reportado:</label>
         <input type="text" id="usuario_reportado" name="usuario_reportado" required>
 
         <label for="motivo">Motivo:</label>
         <input type="text" id="motivo" name="motivo" required>
+
+        <label for="contexto">Contexto:</label>
+        <textarea id="contexto" name="contexto" placeholder="Describí brevemente la situación..." required></textarea>
+
+        <label for="sanciones">Sanciones aplicables:</label>
+        <select id="sanciones" name="sanciones" multiple>
+          <!-- Opciones cargadas automáticamente desde Supabase -->
+        </select>
 
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" name="descripcion" required></textarea>
@@ -44,6 +55,78 @@
     <p>© 2026 Proyecto Paisa Roleplay – Todos los derechos reservados</p>
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = 'https://wgimbwzhxwxmcneekuen.supabase.co'
+    const supabaseKey = 'TU_ANON_KEY_AQUI'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const loginBtn = document.getElementById('login-btn')
+    const reportanteInput = document.getElementById('reportante')
+    const sancionesSelect = document.getElementById('sanciones')
+    const form = document.getElementById('report-form')
+
+    // LOGIN CON DISCORD
+    if (loginBtn) {
+      loginBtn.addEventListener('click', async () => {
+        const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'discord' })
+        if (error) console.log('Error login:', error)
+        else {
+          console.log('Redirigiendo a Discord...', data)
+
+          const { data: { session } } = await supabase.auth.getSession()
+          if (session && session.user) {
+            const username = session.user.user_metadata.full_name || session.user.email
+            if (reportanteInput) reportanteInput.value = username
+          }
+        }
+      })
+    }
+
+    // CARGAR SANCIONES DESDE SUPABASE
+    const cargarSanciones = async () => {
+      try {
+        const { data: sanciones, error } = await supabase.from('sanciones').select('*')
+        if (error) throw error
+
+        sanciones.forEach(s => {
+          const option = document.createElement('option')
+          option.value = s.id
+          option.textContent = `${s.categoria} - ${s.regla} (${s.tiempo})`
+          sancionesSelect.appendChild(option)
+        })
+      } catch (err) {
+        console.log('Error cargando sanciones:', err)
+      }
+    }
+    cargarSanciones()
+
+    // ENVÍO DE REPORTES
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const formData = new FormData(form)
+        const reporte = Object.fromEntries(formData)
+
+        // Obtener sanciones seleccionadas como array
+        const selectedOptions = Array.from(sancionesSelect.selectedOptions).map(o => o.value)
+        reporte.sanciones = selectedOptions
+
+        // Agregar fecha y estado automáticamente
+        reporte.fecha = new Date().toISOString()
+        reporte.estado = 'pendiente'
+
+        const { data, error } = await supabase.from('reportes').insert([reporte])
+        if (error) alert('Error al enviar el reporte: ' + error.message)
+        else {
+          alert('Reporte enviado correctamente!')
+          form.reset()
+        }
+      })
+    }
+  </script>
 </body>
 </html>
+
+
